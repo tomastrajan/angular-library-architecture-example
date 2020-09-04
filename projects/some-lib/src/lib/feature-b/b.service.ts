@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { CService } from '@my-org/some-lib/src/lib/feature-c';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BService {
-
-  constructor(private c: CService) { }
+  constructor(private c: CService) {}
 }

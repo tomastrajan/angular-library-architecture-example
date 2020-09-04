@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/some-lib",
       "sourceRoot": "projects/some-lib/src",
-      "prefix": "lib",
+      "prefix": "my-org",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -39,6 +39,123 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        }
+      }
+    },
+    "some-lib-demo": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/some-lib-demo",
+      "sourceRoot": "projects/some-lib-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/some-lib-demo",
+            "index": "projects/some-lib-demo/src/index.html",
+            "main": "projects/some-lib-demo/src/main.ts",
+            "polyfills": "projects/some-lib-demo/src/polyfills.ts",
+            "tsConfig": "projects/some-lib-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/some-lib-demo/src/favicon.ico",
+              "projects/some-lib-demo/src/assets"
+            ],
+            "styles": [
+              "projects/some-lib-demo/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/some-lib-demo/src/environments/environment.ts",
+                  "with": "projects/some-lib-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "some-lib-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "some-lib-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "some-lib-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/some-lib-demo/src/test.ts",
+            "polyfills": "projects/some-lib-demo/src/polyfills.ts",
+            "tsConfig": "projects/some-lib-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/some-lib-demo/karma.conf.js",
+            "assets": [
+              "projects/some-lib-demo/src/favicon.ico",
+              "projects/some-lib-demo/src/assets"
+            ],
+            "styles": [
+              "projects/some-lib-demo/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/some-lib-demo/tsconfig.app.json",
+              "projects/some-lib-demo/tsconfig.spec.json",
+              "projects/some-lib-demo/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/some-lib-demo/e2e/protractor.conf.js",
+            "devServerTarget": "some-lib-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "some-lib-demo:serve:production"
+            }
           }
         }
       }
