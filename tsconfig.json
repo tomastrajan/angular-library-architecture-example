@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -15,6 +14,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@my-org/some-lib/*": [
+        "projects/some-lib/*",
+        "projects/some-lib"
+      ],
+      "@my-org/some-lib": [
+        "dist/some-lib/*",
+        "dist/some-lib"
+      ]
+    }
   }
 }
+
